@@ -281,4 +281,21 @@ components:
         applicant:
           $ref: '#/components/schemas/User'
         status: 
-          type: boolean
+          type: integer
+          format: int32
+
+    Message:
+      properties:
+        id: 
+          type: integer
+          format: int64
+        quest:
+          $ref: '#/components/schemas/Quest'
+        sender:
+          $ref: '#/components/schemas/User'
+        body:
+          type: string
+        sendTime:
+          type: string
+          format: date-time
+
