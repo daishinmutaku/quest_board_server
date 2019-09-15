@@ -239,7 +239,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Meessage'
+                $ref: '#/components/schemas/Message'
 
               
 components:
