@@ -1,4 +1,4 @@
-/server
+/mock-server
 _secret
 go.mod
 go.sum

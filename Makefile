@@ -10,9 +10,9 @@ ENV:=development
 validate:
 	openapi-generator validate -i ./quest_board_api.yml
 
-run/server:
-	openapi-generator generate -i ./quest_board_api.yml -g go-server -o ./server
-	GO111MODULE=off go run server/main.go
+run/mock:
+	openapi-generator generate -i ./quest_board_api.yml -g go-server -o ./mock-server
+	GO111MODULE=off go run mock-server/main.go
 
 docker/build/db:
 	docker build -t $(DB_REPOSITORY_NAME) ./db
