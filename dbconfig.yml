@@ -1,0 +1,6 @@
+development:
+  dialect: mysql
+  datasource:  root:root@tcp(127.0.0.1)/quest-board?charset=utf8mb4&collation=utf8mb4_general_ci&parseTime=true
+  dir: migrations
+  table: migrations
+

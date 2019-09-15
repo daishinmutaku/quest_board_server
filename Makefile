@@ -25,3 +25,11 @@ docker/stop/db:
 	docker container stop $(DB_CONTAINER_NAME)
 	docker container rm $(DB_CONTAINER_NAME)
 
+migrate/up:
+	sql-migrate up
+
+migrate/down:
+	sql-migrate down
+
+migrate/status:
+	sql-migrate status
