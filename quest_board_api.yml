@@ -257,7 +257,7 @@ components:
         id: 
           type: integer
           format: int64
-        questName:
+        name:
           type: string
         capacity:
           type: integer
