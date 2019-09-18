@@ -2,3 +2,4 @@
 _secret
 go.mod
 go.sum
+server/tmp
