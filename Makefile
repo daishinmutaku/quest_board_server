@@ -1,6 +1,9 @@
 DB_REPOSITORY_NAME:=quest-board/db
 DB_CONTAINER_NAME:=quest-board-db-dev
 
+SERVER_REPOSITORY_NAME:=quest-board/server
+SERVER_CONTAINER_NAME:=quest-board-db-server
+
 DB_VOLUME_PATH:=$(shell pwd)/_secret/quest-board-data
 DB_DATA_PATH:=/var/lib/mysql
 
@@ -17,13 +20,23 @@ run/mock:
 docker/build/db:
 	docker build -t $(DB_REPOSITORY_NAME) ./db
 
+docker/build/server:
+	cd ./server && docker build -t $(SERVER_REPOSITORY_NAME) .
+
 docker/run/db:
 	docker run -d -p 3306:3306 --name $(DB_CONTAINER_NAME) -v $(DB_VOLUME_PATH):$(DB_DATA_PATH) --env-file _secret/.env $(DB_REPOSITORY_NAME):latest
 	@echo 'Connect DB port :3306!!!'
 
+docker/run/server:
+	docker run -d -p 8080:8080 --name $(SERVER_CONTAINER_NAME) $(SERVER_REPOSITORY_NAME):latest
+
 docker/stop/db:
 	docker container stop $(DB_CONTAINER_NAME)
 	docker container rm $(DB_CONTAINER_NAME)
+
+docker/stop/server:
+	docker container stop $(SERVER_CONTAINER_NAME)
+	docker container rm $(SERVER_CONTAINER_NAME)
 
 migrate/up:
 	sql-migrate up
