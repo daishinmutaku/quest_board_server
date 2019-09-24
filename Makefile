@@ -2,7 +2,7 @@ DB_REPOSITORY_NAME:=quest-board/db
 DB_CONTAINER_NAME:=quest-board-db-dev
 
 SERVER_REPOSITORY_NAME:=quest-board/server
-SERVER_CONTAINER_NAME:=quest-board-db-server
+SERVER_CONTAINER_NAME:=quest-board-server-dev
 
 DB_VOLUME_PATH:=$(shell pwd)/_secret/quest-board-data
 DB_DATA_PATH:=/var/lib/mysql
