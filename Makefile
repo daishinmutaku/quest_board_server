@@ -3,6 +3,8 @@ DB_CONTAINER_NAME:=quest-board-db-dev
 
 SERVER_REPOSITORY_NAME:=quest-board/server
 SERVER_CONTAINER_NAME:=quest-board-server-dev
+HOST_SERVER_BASE:=$(shell pwd)/server
+DOCKER_SERVER_BASE:=/go/src/github.com/daishinmutaku/quest_board_server/server
 
 DB_VOLUME_PATH:=$(shell pwd)/_secret/quest-board-data
 DB_DATA_PATH:=/var/lib/mysql
@@ -28,7 +30,7 @@ docker/run/db:
 	@echo 'Connect DB port :3306!!!'
 
 docker/run/server:
-	docker run -d -p 8080:8080 --name $(SERVER_CONTAINER_NAME) $(SERVER_REPOSITORY_NAME):latest
+	docker run -d -p 8080:8080 --name $(SERVER_CONTAINER_NAME) -v $(HOST_SERVER_BASE):$(DOCKER_SERVER_BASE) $(SERVER_REPOSITORY_NAME):latest
 
 docker/stop/db:
 	docker container stop $(DB_CONTAINER_NAME)

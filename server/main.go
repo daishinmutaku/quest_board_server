@@ -1,16 +1,22 @@
 package main
 
 import (
+	"fmt"
+	"time"
+
+	"github.com/daishinmutaku/quest_board_server/server/models"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
-	"time"
 )
 
 func main() {
 	r := gin.Default()
 	r.Use(cors.Default())
+	// Test
+	m := models.Model{Name: "daimu"}
+	fmt.Println(m)
 
 	r.GET("/", Hello)
 	r.POST("/create/user", CreateUser)
