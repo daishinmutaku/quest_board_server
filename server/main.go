@@ -2,6 +2,8 @@ package main
 
 import (
 	"fmt"
+	"log"
+	"os"
 	"time"
 
 	"github.com/daishinmutaku/quest_board_server/server/models"
@@ -16,6 +18,7 @@ func main() {
 	r.Use(cors.Default())
 	// Test
 	m := models.Model{Name: "daimu"}
+	_ = connectGorm()
 	fmt.Println(m)
 
 	r.GET("/", Hello)
@@ -26,7 +29,7 @@ func main() {
 
 func Hello(c *gin.Context) {
 	c.JSON(200, gin.H{
-		"message": "Hello World!",
+		"message": "Hello Daimu!",
 	})
 }
 
@@ -45,9 +48,12 @@ func CreateUser(c *gin.Context) {
 }
 
 func connectGorm() *gorm.DB {
-	db, err := gorm.Open("mysql", "quest-board:quest-board@/quest-board")
+	dbURL := os.Getenv("MYSQL_URL")
+	db, err := gorm.Open("mysql", dbURL)
 	if err != nil {
-		panic("データベース開けず！（dbInsert)")
+		log.Fatal("データベース開けず！（dbInsert)")
+	} else {
+		log.Fatal("DB Connect Success!")
 	}
 	return db
 }

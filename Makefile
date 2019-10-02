@@ -30,7 +30,7 @@ docker/run/db:
 	@echo 'Connect DB port :3306!!!'
 
 docker/run/server:
-	docker run -d -p 8080:8080 --name $(SERVER_CONTAINER_NAME) -v $(HOST_SERVER_BASE):$(DOCKER_SERVER_BASE) $(SERVER_REPOSITORY_NAME):latest
+	docker run -d -p 8080:8080 --name $(SERVER_CONTAINER_NAME) --env-file _secret/.env -v $(HOST_SERVER_BASE):$(DOCKER_SERVER_BASE) $(SERVER_REPOSITORY_NAME):latest
 
 docker/stop/db:
 	docker container stop $(DB_CONTAINER_NAME)
