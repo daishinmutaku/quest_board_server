@@ -53,7 +53,7 @@ func connectGorm() *gorm.DB {
 	if err != nil {
 		log.Fatal("データベース開けず！（dbInsert)")
 	} else {
-		log.Fatal("DB Connect Success!")
+		fmt.Println("DB Connect Success!")
 	}
 	return db
 }
