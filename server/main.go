@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"time"
 
 	"github.com/daishinmutaku/quest_board_server/server/models"
 	"github.com/gin-contrib/cors"
@@ -59,61 +58,19 @@ func connectGorm() *gorm.DB {
 }
 
 // User作成
-func createUser() User {
+func createUser() models.User {
 	db := connectGorm()
-	user := User{Name: "tester"}
+	user := models.User{Name: "tester"}
 	db.Create(&user)
 	defer db.Close()
 	return user
 }
 
 // User全取得
-func getUsers() []User {
+func getUsers() []models.User {
 	db := connectGorm()
-	var users []User
+	var users []models.User
 	db.Find(&users)
 	defer db.Close()
 	return users
-}
-
-// Model
-type User struct {
-	Id   int64
-	Name string
-}
-
-type Tag struct {
-	Id   int64
-	Name string
-}
-
-type Quest struct {
-	Id                int64
-	Name              string
-	Capacity          int64
-	MemberDescription string
-	QuestDescription  string
-	Period            time.Time
-	Reward            string
-	IsFinished        bool
-	Producer          User
-	Member            []User
-	Tag               Tag
-	CreatedDate       time.Time
-	UpdatedDate       time.Time
-}
-
-type Application struct {
-	Id        int64
-	Status    int64
-	Quest     Quest
-	Applicant User
-}
-
-type Message struct {
-	Id       int64
-	Body     string
-	SendTime time.Time
-	Quest    Quest
-	Sender   User
 }
