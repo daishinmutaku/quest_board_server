@@ -11,10 +11,14 @@ func main() {
 	r := gin.Default()
 	r.Use(cors.Default())
 
+	//controller
+	dbController := controllers.DbController{}
+	userController := controllers.UserController{dbController.NewSqlHandler()}
+
 	r.GET("/", Hello)
 
-	r.POST("/user/create", CreateUser)
-	r.GET("/user/index", GetUsers)
+	r.POST("/user/create", userController.Create)
+	r.GET("/user/index", userController.Index)
 
 	r.GET("/quest/create")
 
@@ -24,21 +28,5 @@ func main() {
 func Hello(c *gin.Context) {
 	c.JSON(200, gin.H{
 		"message": "Hello Daimu!",
-	})
-}
-
-func GetUsers(c *gin.Context) {
-	userController := controllers.UserConroller{}
-	users := userController.GetUsers()
-	c.JSON(200, gin.H{
-		"Users": users,
-	})
-}
-
-func CreateUser(c *gin.Context) {
-	userController := controllers.UserConroller{}
-	user := userController.CreateUser()
-	c.JSON(200, gin.H{
-		"User": user,
 	})
 }
