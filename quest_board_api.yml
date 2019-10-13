@@ -19,7 +19,7 @@ tags:
     description: メッセージ関連API
   
 paths:
-  '/quests':
+  '/quest/index':
     get:
       tags:
         - Quest
@@ -37,7 +37,7 @@ paths:
                     items:
                       $ref: '#/components/schemas/Quest'
 
-  '/create':
+  '/quest/create':
     post:
       tags:
         - Quest
@@ -77,7 +77,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Quest'
 
-  '/update/{questId}':
+  '/quest/update/{questId}':
     put:
       tags:
         - Quest
@@ -116,26 +116,8 @@ paths:
                   $ref: '#/components/schemas/Tag'
                 reward:
                   type: string
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Quest'
-  
-  '/finish/{questId}':
-    put:
-      tags:
-        - Quest
-      summary: クエストの募集終了
-      parameters: 
-      - name: questId
-        in: path
-        schema:
-          type: string
-        description: クエストID
-        required: true
+                isFinish:
+                  type: boolean
       responses:
         '200':
           description: OK
@@ -144,7 +126,74 @@ paths:
               schema:
                 $ref: '#/components/schemas/Quest'
 
-  '/apply':
+  '/user/index':
+    get:
+      tags:
+        - User
+      summary: ユーザー一覧
+      requestBody:
+        required: 
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              type: object
+                properties:
+                  user:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/User'
+
+
+  '/user/create':
+    post:
+      tags:
+        - User
+      summary: ユーザー登録
+      requestBody:
+        required: 
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+
+  '/application/index':
+    get:
+      tags:
+        - Application
+      summary: クエスト参加申し込みの取得
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  quests:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Application'
+
+  '/application/create':
     post:
       tags:
         - Application
@@ -156,7 +205,7 @@ paths:
             schema:
               type: object
               properties:
-                quest:
+                name:
                   $ref: '#/components/schemas/Quest'
                 applicant:
                   $ref: '#/components/schemas/User'
@@ -168,7 +217,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Application'
     
-  '/cancel/{applicationId}':
+  '/application/delete/{applicationId}':
     delete:
         tags:
           - Application
@@ -184,7 +233,7 @@ paths:
           '200':
             description: OK
 
-  '/approve/{applicationId}':
+  '/application/update/{applicationId}':
     put:
       tags:
         - Application
@@ -215,7 +264,25 @@ paths:
               schema:
                 $ref: '#/components/schemas/Application'
   
-  '/message/send':
+  '/message/index':
+    get:
+      tags:
+        - Message
+      summary: メッセージの確認
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  quests:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Message'
+
+  '/message/create':
     post:
       tags:
         - Message
