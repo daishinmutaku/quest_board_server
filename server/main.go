@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/daishinmutaku/quest_board_server/server/controllers"
+	"github.com/daishinmutaku/quest_board_server/server/infra"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	_ "github.com/go-sql-driver/mysql"
@@ -12,21 +13,24 @@ func main() {
 	r.Use(cors.Default())
 
 	//controller
-	dbController := controllers.DbController{}
-	userController := controllers.UserController{dbController.NewSqlHandler()}
+	db := infra.NewSqlHandler()
+	questController := controllers.QuestController{db}
+	userController := controllers.UserController{db}
+	applicationController := controllers.ApplicationController{db}
+	messageController := controllers.MessageController{db}
 
-	r.GET("/", Hello)
+	//quest
+	r.GET("/quest/index", questController.Index)
 
+	//user
 	r.POST("/user/create", userController.Create)
 	r.GET("/user/index", userController.Index)
 
-	r.GET("/quest/create")
+	//application
+	r.GET("/application/index", applicationController.Index)
+
+	//message
+	r.GET("/message/index", messageController.Index)
 
 	r.Run(":8080")
-}
-
-func Hello(c *gin.Context) {
-	c.JSON(200, gin.H{
-		"message": "Hello Daimu!",
-	})
 }

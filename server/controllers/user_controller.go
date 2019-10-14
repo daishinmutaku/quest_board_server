@@ -28,7 +28,6 @@ func (controller *UserController) Create(c *gin.Context) {
 func (controller *UserController) createUser() models.User {
 	user := models.User{Name: "tester"}
 	controller.Db.Create(&user)
-	defer controller.Db.Close()
 	return user
 }
 
@@ -36,6 +35,5 @@ func (controller *UserController) createUser() models.User {
 func (controller *UserController) findUser() []models.User {
 	var users []models.User
 	controller.Db.Find(&users)
-	defer controller.Db.Close()
 	return users
 }

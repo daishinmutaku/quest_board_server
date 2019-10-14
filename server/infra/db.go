@@ -1,4 +1,4 @@
-package controllers
+package infra
 
 import (
 	"fmt"
@@ -8,9 +8,7 @@ import (
 	"github.com/jinzhu/gorm"
 )
 
-type DbController struct{}
-
-func (controller *DbController) NewSqlHandler() *gorm.DB {
+func NewSqlHandler() *gorm.DB {
 	dbURL := os.Getenv("MYSQL_URL")
 	db, err := gorm.Open("mysql", dbURL)
 	if err != nil {
