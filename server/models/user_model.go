@@ -8,9 +8,9 @@ import (
 type UserModel struct{}
 
 // User作成
-func (model *UserModel) CreateUser() entities.User {
+func (model *UserModel) CreateUser(name string) entities.User {
 	db := infra.NewSqlHandler()
-	user := entities.User{Name: "tester"}
+	user := entities.User{Name: name}
 	db.Create(&user)
 	return user
 }

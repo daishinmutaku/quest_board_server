@@ -17,7 +17,8 @@ func (controller *UserController) Index(c *gin.Context) {
 
 func (controller *UserController) Create(c *gin.Context) {
 	model := models.UserModel{}
-	user := model.CreateUser()
+	name := c.PostForm("name")
+	user := model.CreateUser(name)
 	c.JSON(200, gin.H{
 		"User": user,
 	})
