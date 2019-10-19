@@ -1,4 +1,4 @@
-package models
+package entities
 
 type Model struct {
 	Name string

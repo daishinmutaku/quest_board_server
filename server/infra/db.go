@@ -16,5 +16,6 @@ func NewSqlHandler() *gorm.DB {
 	} else {
 		fmt.Println("DB Connect Success!")
 	}
+	db.SingularTable(true)
 	return db
 }

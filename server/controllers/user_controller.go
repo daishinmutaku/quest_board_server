@@ -3,37 +3,22 @@ package controllers
 import (
 	"github.com/daishinmutaku/quest_board_server/server/models"
 	"github.com/gin-gonic/gin"
-	"github.com/jinzhu/gorm"
 )
 
-type UserController struct {
-	Db *gorm.DB
-}
+type UserController struct{}
 
 func (controller *UserController) Index(c *gin.Context) {
-	users := controller.findUser()
+	model := models.UserModel{}
+	users := model.FindUser()
 	c.JSON(200, gin.H{
 		"Users": users,
 	})
 }
 
 func (controller *UserController) Create(c *gin.Context) {
-	user := controller.createUser()
+	model := models.UserModel{}
+	user := model.CreateUser()
 	c.JSON(200, gin.H{
 		"User": user,
 	})
-}
-
-// User作成
-func (controller *UserController) createUser() models.User {
-	user := models.User{Name: "tester"}
-	controller.Db.Create(&user)
-	return user
-}
-
-// User全取得
-func (controller *UserController) findUser() []models.User {
-	var users []models.User
-	controller.Db.Find(&users)
-	return users
 }

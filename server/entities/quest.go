@@ -1,14 +1,14 @@
-package models
+package entities
 
 import (
 	"time"
 )
 
 type Quest struct {
-	Id                int64
-	Name              string
-	Capacity          int64
-	MemberDescription string
+	Id                int64  `db:"id"`
+	Name              string `db:"name"`
+	Capacity          int64  `db:"capacity"`
+	MemberDescription string `db:"memberDescription"`
 	QuestDescription  string
 	Period            time.Time
 	Reward            string
