@@ -16,7 +16,7 @@ func (controller *QuestController) Index(c *gin.Context) {
 	quests := questModel.FindQuest()
 
 	response := models.IndexQuestResponseModel{quests}
-	c.JSON(200, response.FormatToJson())
+	c.JSON(200, response)
 }
 
 func (controller *QuestController) Create(c *gin.Context) {
@@ -40,5 +40,5 @@ func (controller *QuestController) Create(c *gin.Context) {
 	quest := questModel.CreateQuest(requestModel)
 
 	response := models.CreateQuestResponseModel{quest}
-	c.JSON(200, response.FormatToJson())
+	c.JSON(200, response)
 }

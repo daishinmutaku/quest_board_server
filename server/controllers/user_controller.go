@@ -15,7 +15,7 @@ func (controller *UserController) Index(c *gin.Context) {
 	users := userModel.FindUser()
 
 	response := models.IndexUserResponseModel{Users: users}
-	c.JSON(200, response.FormatToJson())
+	c.JSON(200, response)
 }
 
 func (controller *UserController) Create(c *gin.Context) {
@@ -26,5 +26,5 @@ func (controller *UserController) Create(c *gin.Context) {
 	user := userModel.CreateUser(requestModel)
 
 	response := models.CreateUserResponseModel{User: user}
-	c.JSON(200, response.FormatToJson())
+	c.JSON(200, response)
 }

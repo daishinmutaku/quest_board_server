@@ -15,5 +15,5 @@ func (controller *MessageController) Index(c *gin.Context) {
 	messages := messageModel.FindMessage()
 
 	response := models.IndexMessageResponseModel{Messages: messages}
-	c.JSON(200, response.FormatToJson())
+	c.JSON(200, response)
 }

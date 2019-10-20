@@ -7,29 +7,29 @@ import (
 
 // Application
 type IndexApplicationResponseModel struct {
-	Applications []entities.Application
+	Applications []entities.Application `json:"Applications"`
 }
 
-func (response IndexApplicationResponseModel) FormatToJson() interface{} {
-	return gin.H{
-		"Applications": response.Applications,
-	}
-}
+//func (response IndexApplicationResponseModel) FormatToJson() interface{} {
+//	return gin.H{
+//		"Applications": response.Applications,
+//	}
+//}
 
 // Message
 type IndexMessageResponseModel struct {
-	Messages []entities.Message
+	Messages []entities.Message `json:"Messages"`
 }
 
-func (response IndexMessageResponseModel) FormatToJson() interface{} {
-	return gin.H{
-		"Messages": response.Messages,
-	}
-}
+//func (response IndexMessageResponseModel) FormatToJson() interface{} {
+//	return gin.H{
+//		"Messages": response.Messages,
+//	}
+//}
 
 // Quest
 type IndexQuestResponseModel struct {
-	Quests []entities.Quest
+	Quests []entities.Quest `json:"Quests"`
 }
 
 func (response IndexQuestResponseModel) FormatToJson() interface{} {
@@ -39,32 +39,32 @@ func (response IndexQuestResponseModel) FormatToJson() interface{} {
 }
 
 type CreateQuestResponseModel struct {
-	Quest entities.Quest
+	Quest entities.Quest `json:"Quest"`
 }
 
-func (response CreateQuestResponseModel) FormatToJson() interface{} {
-	return gin.H{
-		"Quest": response.Quest,
-	}
-}
+//func (response CreateQuestResponseModel) FormatToJson() interface{} {
+//	return gin.H{
+//		"Quest": response.Quest,
+//	}
+//}
 
 // User
 type IndexUserResponseModel struct {
-	Users []entities.User
+	Users []entities.User `json:"Users"`
 }
 
-func (response IndexUserResponseModel) FormatToJson() interface{} {
-	return gin.H{
-		"Users": response.Users,
-	}
-}
+//func (response IndexUserResponseModel) FormatToJson() interface{} {
+//	return gin.H{
+//		"Users": response.Users,
+//	}
+//}
 
 type CreateUserResponseModel struct {
-	User entities.User
+	User entities.User `json:"User"`
 }
 
-func (response CreateUserResponseModel) FormatToJson() interface{} {
-	return gin.H{
-		"User": response.User,
-	}
-}
+//func (response CreateUserResponseModel) FormatToJson() interface{} {
+//	return gin.H{
+//		"User": response.User,
+//	}
+//}

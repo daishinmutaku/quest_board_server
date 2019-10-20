@@ -15,5 +15,5 @@ func (controller *ApplicationController) Index(c *gin.Context) {
 	applications := applicationModel.FindApplication()
 
 	response := models.IndexApplicationResponseModel{Applications: applications}
-	c.JSON(200, response.FormatToJson())
+	c.JSON(200, response)
 }
