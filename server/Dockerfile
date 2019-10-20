@@ -12,5 +12,3 @@ WORKDIR /go/src/github.com/daishinmutaku/quest_board_server/server
 RUN go get github.com/pilu/fresh
 
 CMD ["fresh"]
-
-
