@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"github.com/daishinmutaku/quest_board_server/server/models"
+	"github.com/daishinmutaku/quest_board_server/server/models/request"
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
 	"time"
@@ -24,18 +25,20 @@ func (controller *QuestController) Create(c *gin.Context) {
 	userModel := models.UserModel{controller.Db}
 	tagModel := models.TagModel{controller.Db}
 
-	name := c.PostForm("name")
-	memberDescription := c.PostForm("memberDescription")
-	questDescription := c.PostForm("questDescription")
-	reward := c.PostForm("reward")
-	capacity := int64(2)
-	period := time.Now()
-	isFinished := false
-	producer := userModel.FirstUser()
-	member := userModel.FindUser()
-	tag := tagModel.FirstTag()
+	request := request.CreateQuestModel{}
 
-	quests := questModel.CreateQuest(name, memberDescription, questDescription, reward, capacity, period, isFinished, producer, member, tag)
+	request.Name = c.PostForm("name")
+	request.MemberDescription = c.PostForm("memberDescription")
+	request.QuestDescription = c.PostForm("questDescription")
+	request.Reward = c.PostForm("reward")
+	request.Capacity = int64(2)
+	request.Period = time.Now()
+	request.IsFinished = false
+	request.Producer = userModel.FirstUser()
+	request.Member = userModel.FindUser()
+	request.Tag = tagModel.FirstTag()
+
+	quests := questModel.CreateQuest(request)
 	c.JSON(200, gin.H{
 		"Quests": quests,
 	})

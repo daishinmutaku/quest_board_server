@@ -2,6 +2,7 @@ package models
 
 import (
 	"github.com/daishinmutaku/quest_board_server/server/entities"
+	"github.com/daishinmutaku/quest_board_server/server/models/request"
 	"github.com/jinzhu/gorm"
 	"time"
 )
@@ -18,8 +19,24 @@ func (model *QuestModel) FindQuest() []entities.Quest {
 }
 
 // Quest生成
-func (model *QuestModel) CreateQuest(name, memberDescription, questDescription, reward string, capacity int64, period time.Time, isFinished bool, producer entities.User, member []entities.User, tag entities.Tag) entities.Quest {
-	quest := entities.Quest{Name: name, Capacity: capacity, MemberDescription: memberDescription, QuestDescription: questDescription, Period: period, Reward: reward, IsFinished: isFinished, ProducerID: producer.Id, Producer: producer, Member: member, TagID: tag.Id, Tag: tag, CreatedDate: time.Now(), UpdatedDate: time.Now()}
+func (model *QuestModel) CreateQuest(questModel request.CreateQuestModel) entities.Quest {
+	quest := entities.Quest{
+		Name:              questModel.Name,
+		Capacity:          questModel.Capacity,
+		MemberDescription: questModel.MemberDescription,
+		QuestDescription:  questModel.QuestDescription,
+		Period:            questModel.Period,
+		Reward:            questModel.Reward,
+		IsFinished:        questModel.IsFinished,
+		ProducerID:        questModel.Producer.Id,
+		Producer:          questModel.Producer,
+		Member:            questModel.Member,
+		TagID:             questModel.Tag.Id,
+		Tag:               questModel.Tag,
+		CreatedDate:       time.Now(),
+		UpdatedDate:       time.Now(),
+	}
+
 	model.Db.Create(&quest)
 	return quest
 }
