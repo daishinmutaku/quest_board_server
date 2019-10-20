@@ -3,6 +3,7 @@ package controllers
 import (
 	"github.com/daishinmutaku/quest_board_server/server/models"
 	"github.com/daishinmutaku/quest_board_server/server/models/request"
+	"github.com/daishinmutaku/quest_board_server/server/models/response"
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
 	"time"
@@ -26,7 +27,6 @@ func (controller *QuestController) Create(c *gin.Context) {
 	tagModel := models.TagModel{controller.Db}
 
 	request := request.CreateQuestModel{}
-
 	request.Name = c.PostForm("name")
 	request.MemberDescription = c.PostForm("memberDescription")
 	request.QuestDescription = c.PostForm("questDescription")
@@ -39,7 +39,7 @@ func (controller *QuestController) Create(c *gin.Context) {
 	request.Tag = tagModel.FirstTag()
 
 	quests := questModel.CreateQuest(request)
-	c.JSON(200, gin.H{
-		"Quests": quests,
-	})
+
+	response := response.Response{Key: "Quests", Value: quests}
+	c.JSON(200, response.FormatToJson())
 }
