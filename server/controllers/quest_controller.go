@@ -3,23 +3,26 @@ package controllers
 import (
 	"github.com/daishinmutaku/quest_board_server/server/models"
 	"github.com/gin-gonic/gin"
+	"github.com/jinzhu/gorm"
 	"time"
 )
 
-type QuestController struct{}
+type QuestController struct {
+	Db *gorm.DB
+}
 
 func (controller *QuestController) Index(c *gin.Context) {
-	model := models.QuestModel{}
-	quests := model.FindQuest()
+	questModel := models.QuestModel{controller.Db}
+	quests := questModel.FindQuest()
 	c.JSON(200, gin.H{
 		"Quests": quests,
 	})
 }
 
 func (controller *QuestController) Create(c *gin.Context) {
-	model := models.QuestModel{}
-	userModel := models.UserModel{}
-	tagModel := models.TagModel{}
+	questModel := models.QuestModel{controller.Db}
+	userModel := models.UserModel{controller.Db}
+	tagModel := models.TagModel{controller.Db}
 
 	name := c.PostForm("name")
 	memberDescription := c.PostForm("memberDescription")
@@ -32,7 +35,7 @@ func (controller *QuestController) Create(c *gin.Context) {
 	member := userModel.FindUser()
 	tag := tagModel.FirstTag()
 
-	quests := model.CreateQuest(name, memberDescription, questDescription, reward, capacity, period, isFinished, producer, member, tag)
+	quests := questModel.CreateQuest(name, memberDescription, questDescription, reward, capacity, period, isFinished, producer, member, tag)
 	c.JSON(200, gin.H{
 		"Quests": quests,
 	})

@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/daishinmutaku/quest_board_server/server/controllers"
+	"github.com/daishinmutaku/quest_board_server/server/infra"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	_ "github.com/go-sql-driver/mysql"
@@ -11,11 +12,13 @@ func main() {
 	r := gin.Default()
 	r.Use(cors.Default())
 
+	db := infra.NewSqlHandler()
+
 	//controller
-	questController := controllers.QuestController{}
-	userController := controllers.UserController{}
-	applicationController := controllers.ApplicationController{}
-	messageController := controllers.MessageController{}
+	questController := controllers.QuestController{db}
+	userController := controllers.UserController{db}
+	applicationController := controllers.ApplicationController{db}
+	messageController := controllers.MessageController{db}
 
 	//quest
 	r.GET("/quest/index", questController.Index)
