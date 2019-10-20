@@ -2,7 +2,6 @@ package controllers
 
 import (
 	"github.com/daishinmutaku/quest_board_server/server/models"
-	"github.com/daishinmutaku/quest_board_server/server/models/response"
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
 )
@@ -15,6 +14,6 @@ func (controller *MessageController) Index(c *gin.Context) {
 	messageModel := models.MessageModel{controller.Db}
 	messages := messageModel.FindMessage()
 
-	response := response.Response{Key: "Messages", Value: messages}
+	response := models.IndexMessageResponseModel{Messages: messages}
 	c.JSON(200, response.FormatToJson())
 }

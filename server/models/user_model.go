@@ -25,7 +25,8 @@ func (model *UserModel) FirstUser() entities.User {
 }
 
 // User作成
-func (model *UserModel) CreateUser(name string) entities.User {
+func (model *UserModel) CreateUser(requestModel CreateUserRequestModel) entities.User {
+	name := requestModel.Name
 	user := entities.User{Name: name}
 	model.Db.Create(&user)
 	return user

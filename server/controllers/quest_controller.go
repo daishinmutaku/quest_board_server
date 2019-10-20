@@ -2,8 +2,6 @@ package controllers
 
 import (
 	"github.com/daishinmutaku/quest_board_server/server/models"
-	"github.com/daishinmutaku/quest_board_server/server/models/request"
-	"github.com/daishinmutaku/quest_board_server/server/models/response"
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
 	"time"
@@ -16,9 +14,9 @@ type QuestController struct {
 func (controller *QuestController) Index(c *gin.Context) {
 	questModel := models.QuestModel{controller.Db}
 	quests := questModel.FindQuest()
-	c.JSON(200, gin.H{
-		"Quests": quests,
-	})
+
+	response := models.IndexQuestResponseModel{quests}
+	c.JSON(200, response.FormatToJson())
 }
 
 func (controller *QuestController) Create(c *gin.Context) {
@@ -26,20 +24,21 @@ func (controller *QuestController) Create(c *gin.Context) {
 	userModel := models.UserModel{controller.Db}
 	tagModel := models.TagModel{controller.Db}
 
-	request := request.CreateQuestModel{}
-	request.Name = c.PostForm("name")
-	request.MemberDescription = c.PostForm("memberDescription")
-	request.QuestDescription = c.PostForm("questDescription")
-	request.Reward = c.PostForm("reward")
-	request.Capacity = int64(2)
-	request.Period = time.Now()
-	request.IsFinished = false
-	request.Producer = userModel.FirstUser()
-	request.Member = userModel.FindUser()
-	request.Tag = tagModel.FirstTag()
+	requestModel := models.CreateQuestRequestModel{
+		Name:              c.PostForm("name"),
+		MemberDescription: c.PostForm("memberDescription"),
+		QuestDescription:  c.PostForm("questDescription"),
+		Reward:            c.PostForm("reward"),
+		Capacity:          int64(2),
+		Period:            time.Now(),
+		IsFinished:        false,
+		Producer:          userModel.FirstUser(),
+		Member:            userModel.FindUser(),
+		Tag:               tagModel.FirstTag(),
+	}
 
-	quests := questModel.CreateQuest(request)
+	quest := questModel.CreateQuest(requestModel)
 
-	response := response.Response{Key: "Quests", Value: quests}
+	response := models.CreateQuestResponseModel{quest}
 	c.JSON(200, response.FormatToJson())
 }
