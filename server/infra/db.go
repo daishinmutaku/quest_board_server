@@ -10,7 +10,7 @@ import (
 
 func NewSqlHandler() *gorm.DB {
 	dbURL := os.Getenv("MYSQL_URL")
-	db, err := gorm.Open("mysql", dbURL)
+	db, err := gorm.Open("mysql", dbURL+"?parseTime=true")
 	if err != nil {
 		log.Fatal("データベース開けず！（dbInsert)")
 	} else {

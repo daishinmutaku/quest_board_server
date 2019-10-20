@@ -19,10 +19,11 @@ func main() {
 
 	//quest
 	r.GET("/quest/index", questController.Index)
+	r.POST("/quest/create", questController.Create)
 
 	//user
-	r.POST("/user/create", userController.Create)
 	r.GET("/user/index", userController.Index)
+	r.POST("/user/create", userController.Create)
 
 	//application
 	r.GET("/application/index", applicationController.Index)
