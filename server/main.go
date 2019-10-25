@@ -31,6 +31,7 @@ func main() {
 
 	//application
 	r.GET("/application/index", applicationController.Index)
+	r.POST("/application/create", applicationController.Create)
 
 	//message
 	r.GET("/message/index", messageController.Index)

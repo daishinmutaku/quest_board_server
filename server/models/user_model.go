@@ -31,3 +31,10 @@ func (model *UserModel) CreateUser(requestModel CreateUserRequestModel) entities
 	model.Db.Create(&user)
 	return user
 }
+
+// User作成
+func (model *UserModel) FirstUserWhereID(id string) entities.User {
+	user := entities.User{}
+	model.Db.Where("ID = ?", id).First(&user)
+	return user
+}

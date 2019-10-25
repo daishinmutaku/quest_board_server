@@ -5,6 +5,13 @@ import (
 	"time"
 )
 
+// Application
+type CreateApplicationRequestModel struct {
+	Quest entities.Quest
+	User  entities.User
+}
+
+// Quest
 type CreateQuestRequestModel struct {
 	Name, MemberDescription, QuestDescription, Reward string
 	Capacity                                          int64
@@ -13,10 +20,6 @@ type CreateQuestRequestModel struct {
 	Producer                                          entities.User
 	Member                                            []entities.User
 	Tag                                               entities.Tag
-}
-
-type CreateUserRequestModel struct {
-	Name string
 }
 
 type UpdateQuestRequestModel struct {
@@ -28,4 +31,9 @@ type UpdateQuestRequestModel struct {
 	Producer                                          entities.User
 	Member                                            []entities.User
 	Tag                                               entities.Tag
+}
+
+// User
+type CreateUserRequestModel struct {
+	Name string
 }

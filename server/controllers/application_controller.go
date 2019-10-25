@@ -17,3 +17,19 @@ func (controller *ApplicationController) Index(c *gin.Context) {
 	response := models.IndexApplicationResponseModel{Applications: applications}
 	c.JSON(200, response)
 }
+
+func (controller *ApplicationController) Create(c *gin.Context) {
+	applicationModel := models.ApplicationModel{controller.Db}
+	questModel := models.QuestModel{controller.Db}
+	userModel := models.UserModel{controller.Db}
+
+	requestModel := models.CreateApplicationRequestModel{
+		Quest: questModel.FirstQuestWhereID(c.PostForm("questId")),
+		User:  userModel.FirstUserWhereID(c.PostForm("userId")),
+	}
+
+	application := applicationModel.CreateApplication(requestModel)
+
+	response := models.CreateApplicationtResponseModel{Application: application}
+	c.JSON(200, response)
+}

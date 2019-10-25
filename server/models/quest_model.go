@@ -64,3 +64,9 @@ func (model *QuestModel) UpdateQuest(requestModel UpdateQuestRequestModel) entit
 	model.Db.Save(&quest)
 	return quest
 }
+
+func (model *QuestModel) FirstQuestWhereID(id string) entities.Quest {
+	quest := entities.Quest{}
+	model.Db.Where("ID = ?", id).First(&quest)
+	return quest
+}

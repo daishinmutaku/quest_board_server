@@ -1,8 +1,8 @@
 package entities
 
 type Application struct {
-	Id        int64 `db:"id"`
-	Status    int64 `db:"status"`
-	Quest     Quest `db:"quest"`
-	Applicant User  `db:"applicant"`
+	Id          int64
+	Status      bool
+	QuestId     int64
+	ApplicantId int64
 }

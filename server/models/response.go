@@ -9,6 +9,10 @@ type IndexApplicationResponseModel struct {
 	Applications []entities.Application `json:"Applications"`
 }
 
+type CreateApplicationtResponseModel struct {
+	Application entities.Application `json:"Application"`
+}
+
 // Message
 type IndexMessageResponseModel struct {
 	Messages []entities.Message `json:"Messages"`
