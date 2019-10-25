@@ -39,3 +39,28 @@ func (model *QuestModel) CreateQuest(requestModel CreateQuestRequestModel) entit
 	model.Db.Create(&quest)
 	return quest
 }
+
+// Quest更新
+func (model *QuestModel) UpdateQuest(requestModel UpdateQuestRequestModel) entities.Quest {
+	quest := entities.Quest{}
+	updatedQuest := entities.Quest{
+		Name:              requestModel.Name,
+		Capacity:          requestModel.Capacity,
+		MemberDescription: requestModel.MemberDescription,
+		QuestDescription:  requestModel.QuestDescription,
+		Period:            requestModel.Period,
+		Reward:            requestModel.Reward,
+		IsFinished:        requestModel.IsFinished,
+		ProducerID:        requestModel.Producer.Id,
+		Producer:          requestModel.Producer,
+		Member:            requestModel.Member,
+		TagID:             requestModel.Tag.Id,
+		Tag:               requestModel.Tag,
+		CreatedDate:       time.Now(),
+		UpdatedDate:       time.Now(),
+	}
+
+	model.Db.Where("ID = ?", requestModel.Id).First(&quest).Updates(&updatedQuest)
+	model.Db.Save(&quest)
+	return quest
+}

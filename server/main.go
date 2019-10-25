@@ -23,6 +23,7 @@ func main() {
 	//quest
 	r.GET("/quest/index", questController.Index)
 	r.POST("/quest/create", questController.Create)
+	r.PUT("/quest/update/:id", questController.Update)
 
 	//user
 	r.GET("/user/index", userController.Index)
