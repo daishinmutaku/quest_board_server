@@ -1,6 +1,6 @@
 package entities
 
 type User struct {
-	Id   int64  `db:"id"`
-	Name string `db:"name"`
+	Id   int64
+	Name string
 }

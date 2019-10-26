@@ -16,3 +16,10 @@ func (model *TagModel) FirstTag() entities.Tag {
 
 	return tag
 }
+
+func (model *TagModel) FirstTagWhereId(id int64) entities.Tag {
+	tag := entities.Tag{}
+	model.Db.Where("ID = ?", id).First(&tag)
+
+	return tag
+}

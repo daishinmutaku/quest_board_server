@@ -60,12 +60,12 @@ func (model *QuestModel) UpdateQuest(requestModel UpdateQuestRequestModel) entit
 		UpdatedDate:       time.Now(),
 	}
 
-	model.Db.Where("ID = ?", requestModel.Id).First(&quest).Updates(&updatedQuest)
-	model.Db.Save(&quest)
+	model.Db.Where("ID = ?", requestModel.ID).First(&quest).Updates(&updatedQuest)
+	model.Db.Save(quest)
 	return quest
 }
 
-func (model *QuestModel) FirstQuestWhereID(id string) entities.Quest {
+func (model *QuestModel) FirstQuestWhereID(id int64) entities.Quest {
 	quest := entities.Quest{}
 	model.Db.Where("ID = ?", id).First(&quest)
 	return quest

@@ -33,7 +33,7 @@ func (model *UserModel) CreateUser(requestModel CreateUserRequestModel) entities
 }
 
 // User作成
-func (model *UserModel) FirstUserWhereID(id string) entities.User {
+func (model *UserModel) FirstUserWhereID(id int64) entities.User {
 	user := entities.User{}
 	model.Db.Where("ID = ?", id).First(&user)
 	return user

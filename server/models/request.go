@@ -23,7 +23,7 @@ type CreateQuestRequestModel struct {
 }
 
 type UpdateQuestRequestModel struct {
-	Id                                                string
+	ID                                                int64
 	Name, MemberDescription, QuestDescription, Reward string
 	Capacity                                          int64
 	Period                                            time.Time
