@@ -18,13 +18,12 @@ func (model *ApplicationModel) FindApplication() []entities.Application {
 
 // Applicatioon生成
 func (model *ApplicationModel) CreateApplication(requestModel CreateApplicationRequestModel) entities.Application {
-	quest := requestModel.Quest
-	user := requestModel.User
-
 	application := entities.Application{
 		Status:      false,
-		QuestId:     quest.Id,
-		ApplicantId: user.Id,
+		Quest:       requestModel.Quest,
+		QuestId:     requestModel.Quest.Id,
+		Applicant:   requestModel.User,
+		ApplicantId: requestModel.User.Id,
 	}
 
 	model.Db.Create(&application)
