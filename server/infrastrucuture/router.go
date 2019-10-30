@@ -27,6 +27,7 @@ func init() {
 	//user
 	r.GET("/user/:id", userController.GetUser)
 	r.POST("/user/create", userController.CreateUser)
+	r.PUT("/user/update/:id", userController.UpdateUser)
 
 	Router = r
 }

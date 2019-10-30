@@ -38,3 +38,15 @@ func (service *UserService) CreateUser(name string) (*model.User, error) {
 
 	return user, nil
 }
+
+func (service *UserService) UpdateUser(id int, name string) (*model.User, error) {
+	if strings.Index(name, " ") > -1 {
+		return nil, nil
+	}
+	user, err := service.UserRepository.UpdateUser(id, name)
+	if err != nil {
+		return nil, nil
+	}
+
+	return user, nil
+}

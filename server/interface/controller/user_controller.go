@@ -41,3 +41,18 @@ func (controller *UserController) CreateUser(c *gin.Context) {
 
 	c.JSON(200, user)
 }
+
+func (controller *UserController) UpdateUser(c *gin.Context) {
+	id, _ := strconv.Atoi(c.Param("id"))
+	name := c.PostForm("name")
+
+	user, err := controller.UserService.UpdateUser(id, name)
+
+	if err != nil {
+		c.JSON(500, gin.H{
+			"message": "fail updating user",
+		})
+	}
+
+	c.JSON(200, user)
+}

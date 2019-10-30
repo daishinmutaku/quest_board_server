@@ -33,3 +33,15 @@ func (repository *UserRepository) CreateUser(name string) (*model.User, error) {
 
 	return user, nil
 }
+
+func (repository *UserRepository) UpdateUser(id int, name string) (*model.User, error) {
+	user := &model.User{}
+	updatedUser := &model.User{Name: name}
+	err := repository.SQLHandler.Update(user, id, updatedUser)
+
+	if err != nil {
+		return nil, nil
+	}
+
+	return user, nil
+}
