@@ -23,10 +23,23 @@ func init() {
 			database.NewUserRepository(db),
 		),
 	)
+	tagController := controller.NewTagController(
+		service.NewTagService(
+			database.NewTagRepository(db),
+		),
+	)
 
 	//user
 	r.GET("/user/:id", userController.GetUser)
 	r.POST("/user/create", userController.CreateUser)
+	r.PUT("/user/update/:id", userController.UpdateUser)
+	r.DELETE("/user/delete/:id", userController.DeleteUser)
+
+	//tag
+	r.GET("/tag/:id", tagController.GetTag)
+	r.POST("/tag/create", tagController.CreateTag)
+	r.PUT("/tag/update/:id", tagController.UpdateTag)
+	r.DELETE("/tag/delete/:id", tagController.DeleteTag)
 
 	Router = r
 }

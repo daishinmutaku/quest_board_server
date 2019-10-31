@@ -33,3 +33,26 @@ func (repository *UserRepository) CreateUser(name string) (*model.User, error) {
 
 	return user, nil
 }
+
+func (repository *UserRepository) UpdateUser(id int, name string) (*model.User, error) {
+	user := &model.User{}
+	updatedUser := &model.User{Name: name}
+	err := repository.SQLHandler.Update(user, updatedUser, "id = ?", id)
+
+	if err != nil {
+		return nil, nil
+	}
+
+	return user, nil
+}
+
+func (repository *UserRepository) DeleteUser(id int) error {
+	user := &model.User{}
+	err := repository.SQLHandler.Delete(user, "id = ?", id)
+
+	if err != nil {
+		return err
+	}
+
+	return nil
+}

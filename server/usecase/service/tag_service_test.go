@@ -5,27 +5,28 @@ import (
 	"testing"
 )
 
-type UserRepositoryMock struct{}
+type TagRepositoryMock struct{}
 
-func (mock *UserRepositoryMock) GetUser(id int) (*model.User, error) {
-	output := &model.User{ID: id, Name: "aaa"}
+func (mock *TagRepositoryMock) GetTag(id int) (*model.Tag, error) {
+	output := &model.Tag{ID: id, Name: "aaa"}
 	return output, nil
 }
 
-func (mock *UserRepositoryMock) CreateUser(string) (*model.User, error) {
+func (mock *TagRepositoryMock) CreateTag(string) (*model.Tag, error) {
 	return nil, nil
 }
 
-func (mock *UserRepositoryMock) UpdateUser(id int, name string) (*model.User, error) {
-	output := &model.User{ID: id, Name: name}
+func (mock *TagRepositoryMock) UpdateTag(id int, name string) (*model.Tag, error) {
+	output := &model.Tag{ID: id, Name: name}
 	return output, nil
 }
 
-func (mock *UserRepositoryMock) DeleteUser(id int) error {
-	return nil
+func (mock *TagRepositoryMock) DeleteTag(id int) (*model.Tag, error) {
+	output := &model.Tag{ID: id, Name: "aaa"}
+	return output, nil
 }
 
-func TestGetUserByInvalidID(t *testing.T) {
+func TestGetTagByInvalidID(t *testing.T) {
 	repository := &UserRepositoryMock{}
 	service := NewUserService(repository)
 
@@ -35,7 +36,7 @@ func TestGetUserByInvalidID(t *testing.T) {
 
 	output, err := service.GetUser(input)
 	if err != nil {
-		t.Error("GetUser error")
+		t.Error("GetTag error")
 	}
 
 	t.Log(output)
@@ -45,17 +46,17 @@ func TestGetUserByInvalidID(t *testing.T) {
 	}
 }
 
-func TestCreateUser(t *testing.T) {
+func TestCreateTag(t *testing.T) {
 	repository := &UserRepositoryMock{}
 	service := NewUserService(repository)
 
-	input := "new user"
+	input := "new tag"
 	var expect *model.User
 	expect = nil
 
 	output, err := service.CreateUser(input)
 	if err != nil {
-		t.Error("GetUser error")
+		t.Error("GetTag error")
 	}
 
 	t.Log(output)
@@ -65,18 +66,18 @@ func TestCreateUser(t *testing.T) {
 	}
 }
 
-func TestUpdateUser(t *testing.T) {
+func TestUpdateTag(t *testing.T) {
 	repository := &UserRepositoryMock{}
 	service := NewUserService(repository)
 
 	inputId := 1
-	inputName := "update User"
+	inputName := "update Tag"
 	var expect *model.User
 	expect = nil
 
 	output, err := service.UpdateUser(inputId, inputName)
 	if err != nil {
-		t.Error("Update user error")
+		t.Error("Update tag error")
 	}
 
 	t.Log(output)
@@ -86,7 +87,7 @@ func TestUpdateUser(t *testing.T) {
 	}
 }
 
-func TestDeleteUser(t *testing.T) {
+func TestDeleteTag(t *testing.T) {
 	repository := &UserRepositoryMock{}
 	service := NewUserService(repository)
 
@@ -96,6 +97,7 @@ func TestDeleteUser(t *testing.T) {
 
 	err := service.DeleteUser(input)
 	if err != expect {
-		t.Error("DeleteUser error")
+		t.Error("DeleteTag error")
 	}
+
 }
