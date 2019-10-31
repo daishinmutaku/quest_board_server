@@ -6,5 +6,5 @@ type UserRepository interface {
 	GetUser(int) (*model.User, error)
 	CreateUser(string) (*model.User, error)
 	UpdateUser(int, string) (*model.User, error)
-	DeleteUser(int) (*model.User, error)
+	DeleteUser(int) error
 }

@@ -19,7 +19,7 @@ func (service *UserService) GetUser(id int) (*model.User, error) {
 	}
 	user, err := service.UserRepository.GetUser(id)
 	if err != nil {
-		return nil, nil
+		return nil, err
 	}
 
 	return user, nil
@@ -31,7 +31,7 @@ func (service *UserService) CreateUser(name string) (*model.User, error) {
 	}
 	user, err := service.UserRepository.CreateUser(name)
 	if err != nil {
-		return nil, nil
+		return nil, err
 	}
 
 	return user, nil
@@ -43,20 +43,20 @@ func (service *UserService) UpdateUser(id int, name string) (*model.User, error)
 	}
 	user, err := service.UserRepository.UpdateUser(id, name)
 	if err != nil {
-		return nil, nil
+		return nil, err
 	}
 
 	return user, nil
 }
 
-func (service *UserService) DeleteUser(id int) (*model.User, error) {
+func (service *UserService) DeleteUser(id int) error {
 	if isIncorrectID(id) {
-		return nil, nil
+		return nil
 	}
-	user, err := service.UserRepository.DeleteUser(id)
+	err := service.UserRepository.DeleteUser(id)
 	if err != nil {
-		return nil, nil
+		return err
 	}
 
-	return user, nil
+	return nil
 }

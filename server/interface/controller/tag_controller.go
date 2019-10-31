@@ -60,7 +60,7 @@ func (controller *TagController) UpdateTag(c *gin.Context) {
 func (controller *TagController) DeleteTag(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Param("id"))
 
-	tag, err := controller.TagService.DeleteTag(id)
+	err := controller.TagService.DeleteTag(id)
 
 	if err != nil {
 		c.JSON(500, gin.H{
@@ -68,5 +68,5 @@ func (controller *TagController) DeleteTag(c *gin.Context) {
 		})
 	}
 
-	c.JSON(200, tag)
+	c.JSON(200, err)
 }

@@ -67,13 +67,7 @@ func (handler SQLHandler) Update(dist interface{}, src interface{}, statement st
 }
 
 func (handler SQLHandler) Delete(dist interface{}, statement string, args ...interface{}) error {
-	getErr := handler.DB.Where(statement, args...).First(dist).Error
-	if getErr != nil {
-		log.Println(getErr.Error())
-		return getErr
-	}
-
-	deleteErr := handler.DB.Delete(dist).Error
+	deleteErr := handler.DB.Where(statement, args...).Delete(dist).Error
 	if deleteErr != nil {
 		log.Println(deleteErr.Error())
 		return deleteErr

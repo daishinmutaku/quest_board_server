@@ -60,7 +60,7 @@ func (controller *UserController) UpdateUser(c *gin.Context) {
 func (controller *UserController) DeleteUser(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Param("id"))
 
-	user, err := controller.UserService.DeleteUser(id)
+	err := controller.UserService.DeleteUser(id)
 
 	if err != nil {
 		c.JSON(500, gin.H{
@@ -68,5 +68,5 @@ func (controller *UserController) DeleteUser(c *gin.Context) {
 		})
 	}
 
-	c.JSON(200, user)
+	c.JSON(200, err)
 }

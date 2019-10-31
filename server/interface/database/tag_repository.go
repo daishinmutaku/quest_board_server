@@ -46,13 +46,13 @@ func (repository *TagRepository) UpdateTag(id int, name string) (*model.Tag, err
 	return tag, nil
 }
 
-func (repository *TagRepository) DeleteTag(id int) (*model.Tag, error) {
+func (repository *TagRepository) DeleteTag(id int) error {
 	tag := &model.Tag{}
 	err := repository.SQLHandler.Delete(tag, "id = ?", id)
 
 	if err != nil {
-		return nil, nil
+		return err
 	}
 
-	return tag, nil
+	return nil
 }

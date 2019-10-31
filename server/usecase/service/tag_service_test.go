@@ -92,17 +92,12 @@ func TestDeleteTag(t *testing.T) {
 	service := NewUserService(repository)
 
 	input := -1
-	var expect *model.User
+	var expect error
 	expect = nil
 
-	output, err := service.DeleteUser(input)
-	if err != nil {
+	err := service.DeleteUser(input)
+	if err != expect {
 		t.Error("DeleteTag error")
 	}
 
-	t.Log(output)
-
-	if output != expect {
-		t.Errorf("expect isn't output")
-	}
 }

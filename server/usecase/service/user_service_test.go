@@ -21,9 +21,8 @@ func (mock *UserRepositoryMock) UpdateUser(id int, name string) (*model.User, er
 	return output, nil
 }
 
-func (mock *UserRepositoryMock) DeleteUser(id int) (*model.User, error) {
-	output := &model.User{ID: id, Name: "aaa"}
-	return output, nil
+func (mock *UserRepositoryMock) DeleteUser(id int) error {
+	return nil
 }
 
 func TestGetUserByInvalidID(t *testing.T) {
@@ -92,17 +91,11 @@ func TestDeleteUser(t *testing.T) {
 	service := NewUserService(repository)
 
 	input := -1
-	var expect *model.User
+	var expect error
 	expect = nil
 
-	output, err := service.DeleteUser(input)
-	if err != nil {
+	err := service.DeleteUser(input)
+	if err != expect {
 		t.Error("DeleteUser error")
-	}
-
-	t.Log(output)
-
-	if output != expect {
-		t.Errorf("expect isn't output")
 	}
 }
