@@ -64,3 +64,19 @@ func (handler SQLHandler) Update(dist interface{}, src interface{}, statement st
 
 	return nil
 }
+
+func (handler SQLHandler) Delete(dist interface{}, statement string, args ...interface{}) error {
+	//getErr := handler.DB.Where(statement, args...).First(dist).Error
+	deleteErr := handler.DB.Where(statement, args...).Delete(dist).Error
+
+	//if getErr != nil {
+	//	log.Println(getErr.Error())
+	//	return getErr
+	//}
+	if deleteErr != nil {
+		log.Println(deleteErr.Error())
+		return deleteErr
+	}
+
+	return nil
+}

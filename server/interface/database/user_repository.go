@@ -45,3 +45,14 @@ func (repository *UserRepository) UpdateUser(id int, name string) (*model.User, 
 
 	return user, nil
 }
+
+func (repository *UserRepository) DeleteUser(id int) (*model.User, error) {
+	user := &model.User{}
+	err := repository.SQLHandler.Delete(user, "id = ?", id)
+
+	if err != nil {
+		return nil, nil
+	}
+
+	return user, nil
+}

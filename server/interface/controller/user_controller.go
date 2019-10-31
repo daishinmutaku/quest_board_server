@@ -56,3 +56,17 @@ func (controller *UserController) UpdateUser(c *gin.Context) {
 
 	c.JSON(200, user)
 }
+
+func (controller *UserController) DeleteUser(c *gin.Context) {
+	id, _ := strconv.Atoi(c.Param("id"))
+
+	user, err := controller.UserService.DeleteUser(id)
+
+	if err != nil {
+		c.JSON(500, gin.H{
+			"message": "fail getting user",
+		})
+	}
+
+	c.JSON(200, user)
+}

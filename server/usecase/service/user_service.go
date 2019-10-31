@@ -16,7 +16,7 @@ func NewUserService(repository repository.UserRepository) *UserService {
 }
 
 func (service *UserService) GetUser(id int) (*model.User, error) {
-	if id <= 0 {
+	if isIncorrectID(id) {
 		return nil, nil
 	}
 	user, err := service.UserRepository.GetUser(id)
@@ -49,6 +49,25 @@ func (service *UserService) UpdateUser(id int, name string) (*model.User, error)
 	}
 
 	return user, nil
+}
+
+func (service *UserService) DeleteUser(id int) (*model.User, error) {
+	if isIncorrectID(id) {
+		return nil, nil
+	}
+	user, err := service.UserRepository.DeleteUser(id)
+	if err != nil {
+		return nil, nil
+	}
+
+	return user, nil
+}
+
+func isIncorrectID(id int) bool {
+	if id <= 0 {
+		return true
+	}
+	return false
 }
 
 func hasBlank(str string) bool {
