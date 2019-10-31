@@ -53,7 +53,6 @@ func (handler SQLHandler) Create(src interface{}) error {
 func (handler SQLHandler) Update(dist interface{}, src interface{}, statement string, args ...interface{}) error {
 	getErr := handler.DB.Where(statement, args...).First(dist).Error
 	updateErr := handler.DB.Model(dist).Update(src).Error
-	handler.DB.Delete(dist)
 
 	if getErr != nil {
 		log.Println(getErr.Error())

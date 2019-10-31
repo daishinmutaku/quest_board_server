@@ -1,8 +1,6 @@
 package service
 
 import (
-	"strings"
-
 	"github.com/daishinmutaku/quest_board_server/server/domain/model"
 	"github.com/daishinmutaku/quest_board_server/server/usecase/repository"
 )
@@ -61,18 +59,4 @@ func (service *UserService) DeleteUser(id int) (*model.User, error) {
 	}
 
 	return user, nil
-}
-
-func isIncorrectID(id int) bool {
-	if id <= 0 {
-		return true
-	}
-	return false
-}
-
-func hasBlank(str string) bool {
-	if strings.Index(str, " ") > -1 {
-		return true
-	}
-	return false
 }
