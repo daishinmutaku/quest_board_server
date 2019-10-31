@@ -23,6 +23,7 @@ func NewSqlHandler() SQLHandler {
 		fmt.Println("DB Connect Success!")
 	}
 	db.SingularTable(true)
+	db.LogMode(true)
 
 	return SQLHandler{DB: db}
 }
@@ -52,6 +53,7 @@ func (handler SQLHandler) Create(src interface{}) error {
 func (handler SQLHandler) Update(dist interface{}, src interface{}, statement string, args ...interface{}) error {
 	getErr := handler.DB.Where(statement, args...).First(dist).Error
 	updateErr := handler.DB.Model(dist).Update(src).Error
+	handler.DB.Delete(dist)
 
 	if getErr != nil {
 		log.Println(getErr.Error())
@@ -66,13 +68,13 @@ func (handler SQLHandler) Update(dist interface{}, src interface{}, statement st
 }
 
 func (handler SQLHandler) Delete(dist interface{}, statement string, args ...interface{}) error {
-	//getErr := handler.DB.Where(statement, args...).First(dist).Error
-	deleteErr := handler.DB.Where(statement, args...).Delete(dist).Error
+	getErr := handler.DB.Where(statement, args...).First(dist).Error
+	if getErr != nil {
+		log.Println(getErr.Error())
+		return getErr
+	}
 
-	//if getErr != nil {
-	//	log.Println(getErr.Error())
-	//	return getErr
-	//}
+	deleteErr := handler.DB.Delete(dist).Error
 	if deleteErr != nil {
 		log.Println(deleteErr.Error())
 		return deleteErr
