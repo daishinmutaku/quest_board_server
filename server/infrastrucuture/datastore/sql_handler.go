@@ -49,8 +49,8 @@ func (handler SQLHandler) Create(src interface{}) error {
 	return nil
 }
 
-func (handler SQLHandler) Update(dist interface{}, id int, src interface{}) error {
-	getErr := handler.DB.Where("ID = ?", id).First(dist).Error
+func (handler SQLHandler) Update(dist interface{}, src interface{}, statement string, args ...interface{}) error {
+	getErr := handler.DB.Where(statement, args...).First(dist).Error
 	updateErr := handler.DB.Model(dist).Update(src).Error
 
 	if getErr != nil {

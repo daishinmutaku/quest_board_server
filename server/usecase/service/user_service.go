@@ -28,7 +28,7 @@ func (service *UserService) GetUser(id int) (*model.User, error) {
 }
 
 func (service *UserService) CreateUser(name string) (*model.User, error) {
-	if strings.Index(name, " ") > -1 {
+	if hasBlank(name) {
 		return nil, nil
 	}
 	user, err := service.UserRepository.CreateUser(name)
@@ -40,7 +40,7 @@ func (service *UserService) CreateUser(name string) (*model.User, error) {
 }
 
 func (service *UserService) UpdateUser(id int, name string) (*model.User, error) {
-	if strings.Index(name, " ") > -1 {
+	if hasBlank(name) {
 		return nil, nil
 	}
 	user, err := service.UserRepository.UpdateUser(id, name)
@@ -49,4 +49,11 @@ func (service *UserService) UpdateUser(id int, name string) (*model.User, error)
 	}
 
 	return user, nil
+}
+
+func hasBlank(str string) bool {
+	if strings.Index(str, " ") > -1 {
+		return true
+	}
+	return false
 }
